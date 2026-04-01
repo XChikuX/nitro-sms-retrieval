@@ -12,6 +12,6 @@
 
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *)
 {
-    return facebook::jni::initialize(vm, [=]
-                                     { margelo::nitro::huymobile::smsretriever::initialize(vm); });
+    return facebook::jni::initialize(vm, []
+                                     { margelo::nitro::huymobile::smsretriever::registerAllNatives(); });
 }

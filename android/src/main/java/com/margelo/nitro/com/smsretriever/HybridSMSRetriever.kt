@@ -43,6 +43,7 @@ class HybridSMSRetriever : HybridSMSRetrieverSpec() {
     private var retryCountField: Int = 0
 
     private val smsCallbacks = mutableListOf<(String) -> Unit>()
+    private val smsReceivedCallbacks = mutableListOf<(String) -> Unit>()
     private val errorCallbacks = mutableListOf<(SMSError) -> Unit>()
 
     override val isListening: Boolean
@@ -81,6 +82,8 @@ class HybridSMSRetriever : HybridSMSRetrieverSpec() {
                             handleError(SMSErrorType.INVALID_SMS_FORMAT, "Empty SMS message")
                             return
                         }
+                        // Notify full SMS message callbacks
+                        handleSMSReceived(sms)
                         val otp = extractOTPFromSMS(sms)
                         if (otp.isNullOrBlank()) {
                             Log.e(TAG, "Could not extract OTP from SMS: $sms")
@@ -246,6 +249,15 @@ class HybridSMSRetriever : HybridSMSRetrieverSpec() {
         }
     }
 
+    override fun onSMSReceived(callback: (String) -> Unit): () -> Unit {
+        smsReceivedCallbacks.add(callback)
+        Log.d(TAG, "SMS received callback registered, total: ${smsReceivedCallbacks.size}")
+        return {
+            smsReceivedCallbacks.remove(callback)
+            Log.d(TAG, "SMS received callback removed, remaining: ${smsReceivedCallbacks.size}")
+        }
+    }
+
     override fun onSMSError(callback: (SMSError) -> Unit): () -> Unit {
         errorCallbacks.add(callback)
         Log.d(TAG, "Error callback registered, total: ${errorCallbacks.size}")
@@ -284,6 +296,17 @@ class HybridSMSRetriever : HybridSMSRetrieverSpec() {
 
         Log.w(TAG, "No valid OTP pattern found in SMS")
         return null
+    }
+
+    private fun handleSMSReceived(message: String) {
+        Log.d(TAG, "Full SMS received: $message")
+        smsReceivedCallbacks.forEach { callback ->
+            try {
+                callback(message)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error in SMS received callback", e)
+            }
+        }
     }
 
     private fun handleSuccess(otp: String, fromBroadcast: Boolean) {

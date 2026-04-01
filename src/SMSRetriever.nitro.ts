@@ -30,5 +30,6 @@ export interface SMSRetriever extends HybridObject<{ android: 'kotlin' }> {
   getStatus(): Promise<SMSStatus>;
 
   onSMSRetrieved(callback: (otp: string) => void): () => void;
+  onSMSReceived(callback: (message: string) => void): () => void;
   onSMSError(callback: (error: SMSError) => void): () => void;
 }

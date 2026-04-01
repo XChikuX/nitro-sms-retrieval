@@ -101,6 +101,15 @@ class SMSRetrieverNitro {
     return () => {};
   }
 
+  onSMSReceived(callback: (message: string) => void) {
+    if (this.isNitroAvailable && this.nitroModule) {
+      return this.nitroModule.onSMSReceived(callback);
+    } else if (TurboModuleSMSRetriever) {
+      return TurboModuleSMSRetriever.onSMSReceived(callback);
+    }
+    return () => {};
+  }
+
   onSMSError(callback: (error: SMSError) => void) {
     if (this.isNitroAvailable && this.nitroModule) {
       return this.nitroModule.onSMSError(callback);

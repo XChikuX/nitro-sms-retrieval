@@ -91,6 +91,8 @@ class SMSRetrieverModule(reactContext: ReactApplicationContext) : NativeSmsRetri
                             handleError(SMSErrorType.INVALID_SMS_FORMAT, "Empty SMS message", unregister = true)
                             return
                         }
+                        // Emit full SMS message event
+                        emitEventOnSMSReceived(sms)
                         val otp = extractOTPFromSMS(sms)
                         if (otp.isNullOrBlank()) {
                             Log.e(TAG, "Could not extract OTP from SMS: $sms")
@@ -325,6 +327,13 @@ class SMSRetrieverModule(reactContext: ReactApplicationContext) : NativeSmsRetri
         reactApplicationContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
             .emit("onSMSRetrieved", params)
+    }
+
+    private fun emitEventOnSMSReceived(message: String) {
+        val params: WritableMap = Arguments.createMap().apply { putString("message", message) }
+        reactApplicationContext
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+            .emit("onSMSReceived", params)
     }
 
     private fun emitEventOnSMSError(errorMap: com.facebook.react.bridge.ReadableMap) {

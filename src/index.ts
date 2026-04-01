@@ -9,6 +9,7 @@ export interface UseSMSRetrieverOptions {
   timeoutMs?: number;
   autoStart?: boolean;
   onSuccess?: (otp: string) => void;
+  onSMSReceived?: (message: string) => void;
   onError?: (error: SMSError) => void;
 }
 
@@ -16,6 +17,7 @@ export interface UseSMSRetrieverReturn {
   // State
   appHash: string;
   smsCode: string;
+  smsMessage: string;
   isLoading: boolean;
   isListening: boolean;
   error: string | null;
@@ -41,11 +43,12 @@ export interface UseSMSRetrieverReturn {
 export const useSMSRetriever = (
   options: UseSMSRetrieverOptions = {}
 ): UseSMSRetrieverReturn => {
-  const { timeoutMs = 30000, autoStart = true, onSuccess, onError } = options;
+  const { timeoutMs = 30000, autoStart = true, onSuccess, onSMSReceived, onError } = options;
 
   // State
   const [appHash, setAppHash] = useState<string>('');
   const [smsCode, setSmsCode] = useState<string>('');
+  const [smsMessage, setSmsMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isListening, setIsListening] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -151,6 +154,7 @@ export const useSMSRetriever = (
   // Reset all state
   const reset = useCallback(() => {
     setSmsCode('');
+    setSmsMessage('');
     setError(null);
     setIsListening(false);
     stopListening();
@@ -168,6 +172,12 @@ export const useSMSRetriever = (
       console.log('SMS Code received via event:', otp);
     });
 
+    const smsReceivedCleanup = smsRetriever.onSMSReceived((message: string) => {
+      setSmsMessage(message);
+      onSMSReceived?.(message);
+      console.log('Full SMS received via event:', message);
+    });
+
     const errorCleanup = smsRetriever.onSMSError((smsError: SMSError) => {
       const errorMessage = `${smsError.type}: ${smsError.message}`;
       setError(errorMessage);
@@ -178,9 +188,10 @@ export const useSMSRetriever = (
 
     return () => {
       smsCleanup();
+      smsReceivedCleanup();
       errorCleanup();
     };
-  }, [onSuccess, onError, isAndroid]);
+  }, [onSuccess, onSMSReceived, onError, isAndroid]);
 
   // Initialize on mount
   useEffect(() => {
@@ -206,6 +217,7 @@ export const useSMSRetriever = (
     // State
     appHash,
     smsCode,
+    smsMessage,
     isLoading,
     isListening,
     error,

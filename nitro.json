@@ -9,7 +9,10 @@
   },
   "autolinking": {
     "SMSRetriever": {
-      "kotlin": "HybridSMSRetriever"
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridSMSRetriever"
+      }
     }
   }
 }

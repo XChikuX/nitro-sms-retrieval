@@ -27,6 +27,7 @@ export interface TurboModuleSMSRetrieverInterface {
   getAppHash(): Promise<string>;
   getStatus(): Promise<SMSStatus>;
   onSMSRetrieved(callback: (otp: string) => void): () => void;
+  onSMSReceived(callback: (message: string) => void): () => void;
   onSMSError(callback: (error: SMSError) => void): () => void;
 }
 
@@ -44,6 +45,11 @@ export const TurboModuleSMSRetriever: TurboModuleSMSRetrieverInterface = {
 
   onSMSRetrieved: (callback: (otp: string) => void) => {
     const subscription = eventEmitter.addListener('onSMSRetrieved', callback as any);
+    return () => subscription.remove();
+  },
+
+  onSMSReceived: (callback: (message: string) => void) => {
+    const subscription = eventEmitter.addListener('onSMSReceived', callback as any);
     return () => subscription.remove();
   },
 
