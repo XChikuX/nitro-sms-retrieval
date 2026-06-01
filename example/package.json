@@ -30,7 +30,7 @@
     "@types/react": "^19.1.0",
     "react-native-builder-bob": "^0.40.13",
     "react-native-monorepo-config": "^0.1.9",
-    "react-native-nitro-modules": "0.29.8"
+    "react-native-nitro-modules": "0.35.2"
   },
   "engines": {
     "node": ">=20"

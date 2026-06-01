@@ -174,7 +174,7 @@ Where `FA+9qCX9VSu` is your app hash (obtained from `getAppHash()`).
 - React Native 0.76+ (New Arch)
 - Android API level 19+
 - Google Play Services (for SMS Retriever API)
-- Nitro Modules (optional, for improved performance)
+- **Optional:** `react-native-nitro-modules` for Nitro module support (falls back to TurboModules if not installed)
 
 ## Troubleshooting
 

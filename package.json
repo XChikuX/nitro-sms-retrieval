@@ -1,6 +1,6 @@
 {
   "name": "@psync/nitro-sms",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "description": "A react native android sms retriever api library with Nitro module support for new architecture, old architecture, Nitro module, and Expo compatibility",
   "main": "./lib/module/index.js",
   "module": "./lib/module/index.js",
@@ -117,8 +117,8 @@
     "jest": "^29.7.0",
     "nitrogen": "^0.35.0",
     "prettier": "^3.6.2",
-    "react": "19.1.0",
-    "react-native": "0.81.1",
+    "react": "^19.2.4",
+    "react-native": "^0.83.9",
     "react-native-builder-bob": "^0.30.2",
     "react-native-nitro-modules": "^0.35.2",
     "release-it": "^19.0.4",
@@ -126,8 +126,8 @@
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+    "react": ">=19.0.0",
+    "react-native": ">=0.81.0"
   },
   "workspaces": [
     "example"
@@ -142,8 +142,6 @@
     "lockfileFormat": "bun"
   },
   "resolutions": {
-    "react": "19.1.0",
-    "react-native": "0.81.1",
     "@types/react": "^19.1.0",
     "glob": "^9.0.0",
     "rimraf": "^4.0.0"
