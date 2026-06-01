@@ -62,7 +62,7 @@ Manual trigger để publish với version bump tùy chọn.
 
 ## Notes
 
-- Tất cả workflows đều sử dụng Node.js 20
+- Tất cả workflows đều sử dụng Node.js 20 và Bun 1.3.14
 - Auto publish chỉ bump `patch` version
 - Manual publish cho phép chọn version bump type
 - Commits từ workflow có tag `[skip ci]` để tránh loop
@@ -71,9 +71,7 @@ Manual trigger để publish với version bump tùy chọn.
 ## First Time Setup
 
 ```bash
-# 1. Tạo NPM token
-npm login
-npm token create
+# 1. Tạo NPM token trên npmjs.com
 
 # 2. Thêm NPM_TOKEN vào GitHub Secrets
 

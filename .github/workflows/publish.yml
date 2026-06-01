@@ -49,7 +49,7 @@ jobs:
       - name: Bump version (patch)
         id: bump_version
         run: |
-          bun pm version patch
+          bun pm version patch -m "chore: release v%s [skip ci]"
           NEW_VERSION=$(bun -e 'process.stdout.write(require("./package.json").version)')
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
 

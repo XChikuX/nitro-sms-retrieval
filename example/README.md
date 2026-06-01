@@ -15,10 +15,10 @@ Example app demonstrating the SMS Retriever library with Nitro module support.
 
 ```bash
 # Install dependencies
-yarn install
+bun install
 
 # Run on Android
-yarn android
+bun run android
 ```
 
 ## 🧪 Testing
@@ -46,10 +46,10 @@ chmod +x test.sh
 
 ```bash
 # Start Metro bundler
-yarn start
+bun run start
 
 # In another terminal, run Android
-yarn android
+bun run android
 ```
 
 ### Method 3: Direct Build
@@ -193,9 +193,9 @@ adb logcat | grep "SMSRetriever\|HybridSMSRetriever"
 ```bash
 # Rebuild library
 cd ..
-yarn build
+bun run build
 cd example
-yarn install
+bun install
 ```
 
 ### Issue 2: SMS Not Received
@@ -213,7 +213,7 @@ adb shell dumpsys package com.smsretriever.example | grep permission
 
 # Restart app
 adb shell am force-stop com.smsretriever.example
-yarn android
+bun run android
 ```
 
 ### Issue 3: Build Errors
@@ -229,7 +229,7 @@ yarn android
 ```bash
 # Run nitrogen
 cd ..
-npx nitrogen
+bunx nitrogen
 
 # Clean and rebuild
 cd example
