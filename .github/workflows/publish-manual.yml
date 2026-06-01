@@ -28,23 +28,17 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: Setup
+        uses: ./.github/actions/setup
 
       - name: Lint
-        run: yarn lint
+        run: bun run lint
 
       - name: Typecheck
-        run: yarn typecheck
+        run: bun run typecheck
 
       - name: Build package
-        run: yarn build
+        run: bun run build
 
       - name: Configure Git
         run: |
@@ -53,13 +47,13 @@ jobs:
 
       - name: Get current version
         id: current_version
-        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+        run: echo "version=$(bun -e 'process.stdout.write(require(\"./package.json\").version)')" >> $GITHUB_OUTPUT
 
       - name: Bump version
         id: bump_version
         run: |
-          npm version ${{ inputs.version_bump }} -m "chore: release v%s [skip ci]"
-          NEW_VERSION=$(node -p "require('./package.json').version")
+          bun pm version ${{ inputs.version_bump }} -m "chore: release v%s [skip ci]"
+          NEW_VERSION=$(bun -e 'process.stdout.write(require("./package.json").version)')
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
       - name: Push changes
@@ -69,9 +63,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to NPM
-        run: npm publish --access public
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          bun publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
@@ -97,4 +93,4 @@ jobs:
         if: success()
         run: |
           echo "✅ Successfully published v${{ steps.bump_version.outputs.new_version }} to NPM"
-          echo "📦 Package: https://www.npmjs.com/package/@huymobile/react-native-sms-retriever-nitro-module"
+          echo "📦 Package: https://www.npmjs.com/package/@psync/nitro-sms"

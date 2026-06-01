@@ -2,7 +2,7 @@ import { Platform, NativeModules, NativeEventEmitter } from 'react-native';
 import type { SMSError, SMSStatus } from './types';
 
 const LINKING_ERROR =
-  `The package '@huymobile/react-native-sms-retriever-nitro-module' doesn't seem to be linked. Make sure: \n\n` +
+  `The package '@psync/nitro-sms' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- Run 'pod install'\n", default: '' }) +
   '- Rebuild the app after installing the package\n' +
   '- You are running on a physical device (not simulator)';
@@ -44,17 +44,26 @@ export const TurboModuleSMSRetriever: TurboModuleSMSRetrieverInterface = {
   getStatus: () => SMSRetrieverModule.getStatus(),
 
   onSMSRetrieved: (callback: (otp: string) => void) => {
-    const subscription = eventEmitter.addListener('onSMSRetrieved', callback as any);
+    const subscription = eventEmitter.addListener(
+      'onSMSRetrieved',
+      callback as any
+    );
     return () => subscription.remove();
   },
 
   onSMSReceived: (callback: (message: string) => void) => {
-    const subscription = eventEmitter.addListener('onSMSReceived', callback as any);
+    const subscription = eventEmitter.addListener(
+      'onSMSReceived',
+      callback as any
+    );
     return () => subscription.remove();
   },
 
   onSMSError: (callback: (error: SMSError) => void) => {
-    const subscription = eventEmitter.addListener('onSMSError', callback as any);
+    const subscription = eventEmitter.addListener(
+      'onSMSError',
+      callback as any
+    );
     return () => subscription.remove();
   },
 };

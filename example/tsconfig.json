@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@huymobile/react-native-sms-retriever-nitro-module": ["../src/index.ts"]
+      "@psync/nitro-sms": ["../src/index.ts"]
     }
   }
 }

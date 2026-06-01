@@ -43,7 +43,13 @@ export interface UseSMSRetrieverReturn {
 export const useSMSRetriever = (
   options: UseSMSRetrieverOptions = {}
 ): UseSMSRetrieverReturn => {
-  const { timeoutMs = 30000, autoStart = true, onSuccess, onSMSReceived, onError } = options;
+  const {
+    timeoutMs = 30000,
+    autoStart = true,
+    onSuccess,
+    onSMSReceived,
+    onError,
+  } = options;
 
   // State
   const [appHash, setAppHash] = useState<string>('');
