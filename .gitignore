@@ -83,4 +83,7 @@ ios/generated
 android/generated
 
 # React Native Nitro Modules
-nitrogen/
+# Track nitrogen/generated/ (required for the library to work)
+# Ignore everything in nitrogen/ except generated/
+nitrogen/*
+!nitrogen/generated/

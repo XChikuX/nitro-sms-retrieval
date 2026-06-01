@@ -1,6 +1,6 @@
 {
   "name": "@psync/nitro-sms",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A react native android sms retriever api library with Nitro module support for new architecture, old architecture, Nitro module, and Expo compatibility",
   "main": "./lib/module/index.js",
   "module": "./lib/module/index.js",
@@ -39,6 +39,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli android/build example/android/build example/android/app/build lib",
+    "nitrogen": "nitrogen generate",
     "prepack": "bun run build",
     "build": "bob build && bun run bun:build",
     "release": "release-it --only-version",
@@ -188,18 +189,8 @@
     "source": "src",
     "output": "lib",
     "targets": [
-      [
-        "module",
-        {
-          "esm": true
-        }
-      ],
-      [
-        "typescript",
-        {
-          "project": "tsconfig.build.json"
-        }
-      ]
+      "module",
+      "typescript"
     ]
   },
   "codegenConfig": {
