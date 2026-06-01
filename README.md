@@ -2,6 +2,8 @@
 
 A React Native library for Android SMS Retriever API with support for both Nitro Modules and TurboModules (new architecture). This library allows you to automatically retrieve SMS messages containing OTP codes without requiring SMS permissions.
 
+[Repository](https://github.com/New-Elysium/nitro-sms-retrieval)
+
 [![npm version](https://badge.fury.io/js/%40psync%2Fnitro-sms.svg)](https://badge.fury.io/js/%40psync%2Fnitro-sms)
 [![npm downloads](https://img.shields.io/npm/dm/%40psync%2Fnitro-sms.svg)](https://www.npmjs.com/package/@psync/nitro-sms)
 

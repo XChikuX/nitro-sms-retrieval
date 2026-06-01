@@ -74,7 +74,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XChikuX/nitro-sms-retrieval.git"
+    "url": "git+https://github.com/New-Elysium/nitro-sms-retrieval.git"
   },
   "author": {
     "name": "Huy Tran",
@@ -83,9 +83,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/XChikuX/nitro-sms-retrieval/issues"
+    "url": "https://github.com/New-Elysium/nitro-sms-retrieval/issues"
   },
-  "homepage": "https://github.com/XChikuX/nitro-sms-retrieval#readme",
+  "homepage": "https://github.com/New-Elysium/nitro-sms-retrieval#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
