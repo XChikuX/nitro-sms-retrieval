@@ -8,7 +8,7 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import { useSMSRetriever } from '@huymobile/react-native-sms-retriever-nitro-module';
+import { useSMSRetriever } from '@psync/nitro-sms';
 
 export default function App() {
   const [otp, setOtp] = useState<string>('');

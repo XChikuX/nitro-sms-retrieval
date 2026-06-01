@@ -1,8 +1,10 @@
 {
-  "name": "@huymobile/react-native-sms-retriever-nitro-module",
+  "name": "@psync/nitro-sms",
   "version": "1.1.0",
   "description": "A react native android sms retriever api library with Nitro module support for new architecture, old architecture, Nitro module, and Expo compatibility",
   "main": "./lib/module/index.js",
+  "module": "./lib/module/index.js",
+  "react-native": "./src/index.ts",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
     ".": {
@@ -32,19 +34,19 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-sms-retriever-example",
+    "example": "cd example && bun run start",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli android/build example/android/build example/android/app/build lib",
-    "prepack": "bob build",
-    "build": "bob build",
+    "prepack": "bun run build",
+    "build": "bob build && bun run bun:build",
     "release": "release-it --only-version",
     "bun:install": "bun install",
     "bun:build": "bun build ./src/index.ts --outdir ./lib/bun --target node --format esm --sourcemap=external --minify --external react --external react-native --external react-native-nitro-modules",
     "bun:link": "bun link",
     "bun:example": "cd example && bun install",
-    "bun:all": "bun run bun:install && bun run bun:build && bun run bun:link && bun run bun:example"
+    "bun:all": "bun install && bun run build && bun link && cd example && bun install"
   },
   "keywords": [
     "react-native",
@@ -72,7 +74,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/huytdps13400/react-native-sms-retriever-nitro-module.git"
+    "url": "git+https://github.com/XChikuX/nitro-sms-retrieval.git"
   },
   "author": {
     "name": "Huy Tran",
@@ -81,11 +83,12 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/huytdps13400/react-native-sms-retriever-nitro-module/issues"
+    "url": "https://github.com/XChikuX/nitro-sms-retrieval/issues"
   },
-  "homepage": "https://github.com/huytdps13400/react-native-sms-retriever-nitro-module#readme",
+  "homepage": "https://github.com/XChikuX/nitro-sms-retrieval#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "contributors": [
     {
@@ -129,7 +132,7 @@
   "workspaces": [
     "example"
   ],
-  "packageManager": "yarn@3.6.1",
+  "packageManager": "bun@1.3.14",
   "trustedDependencies": [
     "react-native-nitro-modules",
     "nitrogen"

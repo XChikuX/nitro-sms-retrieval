@@ -31,17 +31,11 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: Setup
+        uses: ./.github/actions/setup
 
       - name: Build package
-        run: yarn build
+        run: bun run build
 
       - name: Configure Git
         run: |
@@ -50,13 +44,13 @@ jobs:
 
       - name: Get current version
         id: current_version
-        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+        run: echo "version=$(bun -e 'process.stdout.write(require(\"./package.json\").version)')" >> $GITHUB_OUTPUT
 
       - name: Bump version (patch)
         id: bump_version
         run: |
-          npm version patch -m "chore: release v%s [skip ci]"
-          NEW_VERSION=$(node -p "require('./package.json').version")
+          bun pm version patch
+          NEW_VERSION=$(bun -e 'process.stdout.write(require("./package.json").version)')
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
       - name: Push changes
@@ -66,9 +60,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to NPM
-        run: npm publish --access public
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          bun publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create GitHub Release
         uses: actions/create-release@v1

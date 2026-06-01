@@ -1,9 +1,9 @@
-# @huymobile/react-native-sms-retriever-nitro-module
+# @psync/nitro-sms
 
 A React Native library for Android SMS Retriever API with support for both Nitro Modules and TurboModules (new architecture). This library allows you to automatically retrieve SMS messages containing OTP codes without requiring SMS permissions.
 
-[![npm version](https://badge.fury.io/js/%40huymobile%2Freact-native-sms-retriever-nitro-module.svg)](https://badge.fury.io/js/%40huymobile%2Freact-native-sms-retriever-nitro-module)
-[![npm downloads](https://img.shields.io/npm/dm/@huymobile/react-native-sms-retriever-nitro-module.svg)](https://www.npmjs.com/package/@huymobile/react-native-sms-retriever-nitro-module)
+[![npm version](https://badge.fury.io/js/%40psync%2Fnitro-sms.svg)](https://badge.fury.io/js/%40psync%2Fnitro-sms)
+[![npm downloads](https://img.shields.io/npm/dm/%40psync%2Fnitro-sms.svg)](https://www.npmjs.com/package/@psync/nitro-sms)
 
 ## 📱 Demo
 
@@ -28,13 +28,13 @@ A React Native library for Android SMS Retriever API with support for both Nitro
 
 ```sh
 # Using npm
-npm install @huymobile/react-native-sms-retriever-nitro-module
+npm install @psync/nitro-sms
 
 # Using yarn
-yarn add @huymobile/react-native-sms-retriever-nitro-module
+yarn add @psync/nitro-sms
 
 # Using bun
-bun add @huymobile/react-native-sms-retriever-nitro-module
+bun add @psync/nitro-sms
 ```
 
 ### Android Setup
@@ -48,7 +48,7 @@ The library uses autolinking, so no additional setup is required for React Nativ
 ```tsx
 import React from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
-import { useSMSRetriever } from '@huymobile/react-native-sms-retriever-nitro-module';
+import { useSMSRetriever } from '@psync/nitro-sms';
 
 export default function App() {
   const {
@@ -83,7 +83,7 @@ export default function App() {
 ### Using the Native Module Directly
 
 ```tsx
-import NativeSMSRetriever from '@huymobile/react-native-sms-retriever-nitro-module';
+import NativeSMSRetriever from '@psync/nitro-sms';
 
 // Get app hash for SMS message
 const appHash = await NativeSMSRetriever.getAppHash();

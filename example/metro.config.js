@@ -22,7 +22,7 @@ const finalConfig = {
       path.resolve(root, 'node_modules'),
     ],
     extraNodeModules: {
-      '@huymobile/react-native-sms-retriever-nitro-module': root,
+      '@psync/nitro-sms': root,
     },
 
     // Block parent node_modules to prevent duplicate React
